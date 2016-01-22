@@ -27,4 +27,6 @@ plot_df(unique(baltimore$year),pollution.baltimore,"Total PM2.5 emission by year
 
 #question 3
 library(ggplot2)
-ggplot(baltimore,aes(x=as.factor(year),y=Emissions))+geom_point()+facet_grid(. ~ type)
+test<-group_by(baltimore,type,year)
+test2<-summarise(test,pol=sum(Emissions))
+ggplot(test2,aes(x=as.factor(year),y=pol,group=as.factor(type),col=as.factor(type)))+geom_line()+geom_point()
